@@ -60,17 +60,6 @@ export function openStorage(path: string, localesOrCallback: string[] | OpenStor
   return addon.openCascStorage(path, localesToMask(locales), callback)
 }
 
-export function getStorageInfo(storageHandle: any): StorageInfo {
-  const info = addon.getCascStorageInfo(storageHandle) as AddonStorageInfo
-
-  return {
-    fileCount: info.fileCount,
-    gameName: info.gameName,
-    gameBuild: info.gameBuild,
-    installedLocales: localeMaskToList(info.installedLocales),
-  }
-}
-
 export function closeStorage(storageHandle: any) {
   addon.closeCascStorage(storageHandle)
 }

@@ -36,6 +36,8 @@ vector<unique_ptr<FindResult>> FindFiles(HANDLE storageHandle, const char* searc
     CASC_FIND_DATA findData;
     vector<unique_ptr<FindResult>> results;
 
+// HANDLE WINAPI CascFindFirstFile(HANDLE hStorage, LPCSTR szMask, PCASC_FIND_DATA pFindData, LPCTSTR szListFile);
+
     HANDLE searchHandle = CascFindFirstFile(storageHandle, searchPattern, &findData, listFilePath);
 
     if(searchHandle == INVALID_HANDLE_VALUE) {
@@ -43,7 +45,7 @@ vector<unique_ptr<FindResult>> FindFiles(HANDLE storageHandle, const char* searc
     }
 
     do {
-        unique_ptr<FindResult> result(new FindResult(findData.szFileName, findData.szPlainName, findData.dwFileSize));
+        unique_ptr<FindResult> result(new FindResult(findData.szFileName, findData.szPlainName, findData.FileSize));
         results.push_back(move(result));
     }
     while(CascFindNextFile(searchHandle, &findData));
