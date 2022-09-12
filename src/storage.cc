@@ -112,7 +112,7 @@ storage::OpenAsyncWorker::OpenAsyncWorker(const Napi::Function& callback, const 
 
 void storage::OpenAsyncWorker::Execute() {
     if(!CascOpenStorage(storagePath.c_str(), localeMask, &storageHandle)) {
-        int errorCode = GetLastError();
+        int errorCode = GetCascError();
         string errorMessage = errors::ErrorMessage("Unable to open CASC storage.", errorCode);
         SetError(errorMessage);
     }

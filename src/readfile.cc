@@ -141,7 +141,7 @@ void readfile::ReadAsyncWorker::Execute() {
 
     DWORD read = 0;
     if(!CascReadFile(fileHandle, fileData, fileSize, &read)) {
-        string message = errors::ErrorMessage("Failed to read file.", GetLastError());
+        string message = errors::ErrorMessage("Failed to read file.", GetCascError());
         SetError(message);
         return;
     }
@@ -194,7 +194,7 @@ readfile::ReadBufferAsyncWorker::ReadBufferAsyncWorker(const Napi::Function& cal
 void readfile::ReadBufferAsyncWorker::Execute() {
     fileData = new LPBYTE[size]();
     if(!CascReadFile(fileHandle, fileData, size, &read)) {
-        string message = errors::ErrorMessage("Failed to read file data.", GetLastError());
+        string message = errors::ErrorMessage("Failed to read file data.", GetCascError());
         SetError(message);
     }
 }

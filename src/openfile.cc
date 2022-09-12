@@ -103,7 +103,7 @@ openfile::OpenAsyncWorker::OpenAsyncWorker(const Napi::Function& callback, const
 
 void openfile::OpenAsyncWorker::Execute() {
     if(!CascOpenFile(storageHandle, fileName.c_str(), CASC_LOCALE_ALL, 0, &fileHandle)) {
-        int errorCode = GetLastError();
+        int errorCode = GetCascError();
         string errorMessage = errors::ErrorMessage("Unable to open file.", errorCode);
         SetError(errorMessage);
     }

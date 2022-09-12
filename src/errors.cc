@@ -18,7 +18,7 @@ void errors::ThrowJavascriptTypeError(Napi::Env env, const string& message) {
 }
 
 void errors::ThrowJavascriptErrorWithLastError(Napi::Env env, const string& message) {
-    int errorCode = GetLastError();
+    int errorCode = GetCascError();
 
     string errorMessage = ErrorMessage(message, errorCode);
 
