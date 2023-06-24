@@ -1,18 +1,20 @@
-node-casclib
+bw-casclib
 ============
 
 Node bindings for [CascLib](https://github.com/ladislav-zezula/CascLib)
 
+> Note this is a fork to support the latest version of CascLib as node-casclib has been abandoned. Only StarCraft is supported.
+
 Installation
 ------------
 
-node-casclib has been tested on Windows and Linux. To install using npm
+bw-casclib has been tested on Windows and Linux. To install using npm
 
-    npm install casclib
+    npm install bw-casclib
 
 or with yarn
 
-    yarn add casclib
+    yarn add bw-casclib
 
 
 Usage

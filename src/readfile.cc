@@ -65,7 +65,14 @@ Napi::Value CascReadSync(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    return Napi::Buffer<LPBYTE>::New(env, fileData, fileSize, FinalizeFileData);
+    // Create a new Buffer by copying the data into V8-allocated memory
+    Napi::Buffer<LPBYTE> buffer = Napi::Buffer<LPBYTE>::New(env, fileSize);
+    memcpy(buffer.Data(), fileData, fileSize);
+
+    // Don't forget to free the original memory
+    delete[] fileData;
+
+    return buffer;
 }
 
 Napi::Value CascRead(const Napi::CallbackInfo& info) {
@@ -156,8 +163,16 @@ void readfile::ReadAsyncWorker::OnOK() {
 }
 
 Napi::Value readfile::ReadAsyncWorker::Data() {
-    return Napi::Buffer<LPBYTE>::New(Env(), fileData, fileSize, FinalizeFileData);
+    // Create a new Buffer by copying the data into V8-allocated memory
+    Napi::Buffer<LPBYTE> buffer = Napi::Buffer<LPBYTE>::New(Env(), fileSize);
+    memcpy(buffer.Data(), fileData, fileSize);
+
+    // Don't forget to free the original memory
+    delete[] fileData;
+
+    return buffer;
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // PromiseReadAsyncWorker class
@@ -204,8 +219,16 @@ void readfile::ReadBufferAsyncWorker::OnOK() {
 }
 
 Napi::Value readfile::ReadBufferAsyncWorker::Data() {
-    return Napi::Buffer<LPBYTE>::New(Env(), fileData, read, FinalizeFileData);
+    // Create a new Buffer by copying the data into V8-allocated memory
+    Napi::Buffer<LPBYTE> buffer = Napi::Buffer<LPBYTE>::New(Env(), read);
+    memcpy(buffer.Data(), fileData, read);
+
+    // Don't forget to free the original memory
+    delete[] fileData;
+
+    return buffer;
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Init
